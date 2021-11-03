@@ -1,0 +1,14 @@
+column_name,type
+nplaca,object
+IngresoAVG,numerical
+Inicio,numerical
+potencial_16_21,numerical
+valor_factura,numerical
+tipo_persona,categorical
+tarjeta_circulacion,categorical
+desciprcion_uso,categorical
+valor_depreciado_2021,numerical
+tenencia_2021,numerical
+subsidio_2021,categorical
+periodos,numerical
+deuda,numerical
