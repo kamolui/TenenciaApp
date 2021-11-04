@@ -17,7 +17,7 @@ hide_menu_style = """
     footer {visibility: hidden;}
     </style>
     """
-#st.markdown(hide_menu_style, unsafe_allow_html=True)
+st.markdown(hide_menu_style, unsafe_allow_html=True)
 
 # Create an instance of the app
 app = MultiPage()
@@ -40,6 +40,6 @@ app.add_page("Cargar datos", data_upload.app)
 app.add_page("Cambiar datos", metadata.app)
 app.add_page("Inferencia", prediction.app)
 app.add_page("Predicciones", full_pre.app)
-app.add_page("Data Analysis",data_visualize.app)
+app.add_page("Evaluación del modelo",data_visualize.app)
 
 app.run()
