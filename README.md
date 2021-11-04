@@ -14,4 +14,4 @@ Por último se muestran los resultados del entrenamiento del modelo y sus evalua
 modelo.
 
 ---
-**Creditos:** App creada en Python + Streamlit por la [Secretaria de Administración y Finanzas de la CDMX](https://www.finanzas.cdmx.gob.mx) (aka [SAF](https://www.finanzas.cdmx.gob.mx))
+**Creditos:** App creada en ´Python´ + ´Streamlit´ por la [Secretaria de Administración y Finanzas de la CDMX](https://www.finanzas.cdmx.gob.mx) (aka [SAF](https://www.finanzas.cdmx.gob.mx))
