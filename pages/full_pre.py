@@ -5,6 +5,7 @@ from sklearn.ensemble import GradientBoostingClassifier
 import joblib
 import plotly.express as px
 import os
+import plotly.graph_objects as go
 
 
 # @st.cache
@@ -43,7 +44,7 @@ def app():
         data['prediccion'] = prediction
 
         # Añadir la columna de probabilidades
-        data['probabilidad_pago'] = prediction_proba[:,1]
+        data['prob_pago'] = prediction_proba[:,1]
 
         # Añadir columna categorica con los resultados
         def tipo(cols):
@@ -66,22 +67,25 @@ def app():
         #st.write(prediction_proba)
 
 
-        st.subheader('Predicciones')
-        st.write(data[['nplaca', 'estatus_pago', 'probabilidad_pago']])
-        st.subheader('Resultados')
-        st.write(data['estatus_pago'].value_counts())
+        col1, col2 = st.columns(2)
+
+        col1.subheader('Predicciones')
+        col1.write(data[['nplaca', 'estatus_pago', 'prob_pago']])
+        col2.subheader('Resultados')
+        col2.write(data['estatus_pago'].value_counts())
 
 
-        # Grafica de barras (pago, no pago)
-        fig = px.histogram(
-            data_frame=data,
-            x="prediccion",
-            color='estatus_pago',
-            title="Predicciones")
+        # Grafica de pie (pago, no pago)
+         label = ['No Pago', 'Si pago']
+        values = data['estatus_pago'].value_counts().values
+
+        fig = go.Figure(
+            data=[go.Pie(labels=label, values=values, hole=.3)]
+        )
 
         fig.update_layout({
-        'plot_bgcolor': 'rgba(0, 0, 0, 0)',
-        'paper_bgcolor': 'rgba(0, 0, 0, 0)',
+            'plot_bgcolor': 'rgba(0, 0, 0, 0)',
+            'paper_bgcolor': 'rgba(0, 0, 0, 0)',
         })
 
         st.plotly_chart(fig)
@@ -89,7 +93,7 @@ def app():
         # Distribucion de las prob (pago)
         fig = px.histogram(
             data_frame=data,
-            x="probabilidad_pago",
+            x="prob_pago",
             color='estatus_pago',
             title='Probabilidades')
 
@@ -99,3 +103,17 @@ def app():
         })
 
         st.plotly_chart(fig)
+
+        @st.cache
+        def convert_df(df):
+            # IMPORTANT: Cache the conversion to prevent computation on every rerun
+            return df.to_csv().encode('utf-8')
+
+        csv = convert_df(data)
+
+        from datetime import date
+        today = date.today()
+
+        d4 = today.strftime("%b-%d-%Y")
+
+        st.download_button('Descargar CSV', csv, 'prediccion_'+d4+'.csv')
