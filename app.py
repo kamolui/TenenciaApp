@@ -23,7 +23,7 @@ st.markdown(hide_menu_style, unsafe_allow_html=True)
 app = MultiPage()
 
 # Title of the main page
-display = Image.open('data/images/logo_dpfi-cdmx.png')
+display = Image.open('logo_dpfi-cdmx.png')
 display = np.array(display)
 st.image(display, width = 650)
 st.title("Aplicación de predicción del pago de tenencia")

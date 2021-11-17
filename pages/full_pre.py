@@ -37,10 +37,13 @@ def app():
 
         # Apply model to make predictions
         prediction = model_1.predict(data.drop(['nplaca', 'periodos'], axis=1))
-        #prediction_proba = model_1.predict_proba(data)
+        prediction_proba = model_1.predict_proba(data.drop(['nplaca', 'periodos'], axis=1))
 
         # Añadir la columna de predicciones
         data['prediccion'] = prediction
+
+        # Añadir la columna de probabilidades
+        data['probabilidad_pago'] = prediction_proba[:,1]
 
         # Añadir columna categorica con los resultados
         def tipo(cols):
@@ -62,13 +65,14 @@ def app():
         #st.subheader('Prediction Probability')
         #st.write(prediction_proba)
 
-        col1, col2 = st.columns(2)
-        col1.subheader('Predicciones')
-        col1.write(data[['nplaca', 'estatus_pago']])
-        col2.subheader('Resultados')
-        col2.write(data['estatus_pago'].value_counts())
 
-        # graficar resultados
+        st.subheader('Predicciones')
+        st.write(data[['nplaca', 'estatus_pago', 'probabilidad_pago']])
+        st.subheader('Resultados')
+        st.write(data['estatus_pago'].value_counts())
+
+
+        # Grafica de barras (pago, no pago)
         fig = px.histogram(
             data_frame=data,
             x="prediccion",
@@ -78,6 +82,20 @@ def app():
         fig.update_layout({
         'plot_bgcolor': 'rgba(0, 0, 0, 0)',
         'paper_bgcolor': 'rgba(0, 0, 0, 0)',
+        })
+
+        st.plotly_chart(fig)
+
+        # Distribucion de las prob (pago)
+        fig = px.histogram(
+            data_frame=data,
+            x="probabilidad_pago",
+            color='estatus_pago',
+            title='Probabilidades')
+
+        fig.update_layout({
+            'plot_bgcolor': 'rgba(0, 0, 0, 0)',
+            'paper_bgcolor': 'rgba(0, 0, 0, 0)',
         })
 
         st.plotly_chart(fig)

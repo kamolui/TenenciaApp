@@ -16,18 +16,18 @@ def app():
     def user_input_features():
 
         col1, col2, col3 = st.columns(3)
-        ingresoAVG = col1.slider('IngresoAVG', 0, 300000, 1000, step=1000)
+        ingresoAVG = col1.number_input('IngresoAVG', 0, 300000, 1000, step=1000)
         inicio = col2.slider('inicio', 2000, 2024, 2019, step=1)
-        valor_factura = col3.slider('Factura', 5000, 5000000, 100000, step=10000)
+        valor_factura = col3.number_input('Factura', 5000, 5000000, 100000, step=10000)
 
         col4, col5, col6 = st.columns(3)
-        valor_depreciado = col4.slider('Depreciacion', 500, 3000000, 5000, step=1000)
-        potencial = col5.slider('Faltante', 0, 250000, 1000, step=1000)
-        deuda = col6.slider('Periodos pagados', 0, 24, 1)
+        valor_depreciado = col4.number_input('Depreciacion', 500, 3000000, 5000, step=1000)
+        potencial = col5.number_input('Faltante', 0, 250000, 1000, step=1000)
+        deuda = col6.slider('Periodos no pagados', 0, 24, 1)
 
         col7, col8 = st.columns(2)
-        subsudio = col7.slider('Subsidio otorgado', 0, 8000, 1000, step=500)
-        tenencia = col8.slider('Tenencia al año actual', 0, 70000, step=1000)
+        subsudio = col7.number_input('Subsidio otorgado', 0, 8000, 1000, step=500)
+        tenencia = col8.number_input('Tenencia al año actual', 0, 70000, step=1000)
 
         col9, col10, col11 = st.columns(3)
         tipo_persona = col9.selectbox('Tipo de persona', ('Persona Fisica', 'Persona Moral'))
