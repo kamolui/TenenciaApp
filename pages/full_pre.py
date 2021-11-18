@@ -76,7 +76,7 @@ def app():
 
 
         # Grafica de pie (pago, no pago)
-         label = ['No Pago', 'Si pago']
+        label = ['No Pago', 'Si pago']
         values = data['estatus_pago'].value_counts().values
 
         fig = go.Figure(
