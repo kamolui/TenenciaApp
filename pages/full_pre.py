@@ -21,14 +21,10 @@ def app():
     else:
         # cargar datos guardados en cache
         data = pd.read_csv('data/main_data.csv')
-        st.dataframe(data)
+        st.dataframe(data.head(20))
 
-        data.rename(columns={'Potencial_18_21': 'potencial_16_21', 'Tipo_persona': 'tipo_persona',
-                         'Tarjeta_circulacion': 'tarjeta_circulacion',
-                         'Descripcion_uso': 'desciprcion_uso', 'Valor_depreciado': 'valor_depreciado_2021',
-                         'Tenencia': 'tenencia_2021', 'Subsidio': 'subsidio_2021',
-                         'Deuda': 'deudas_antes_21', 'Valor_factura': 'valor_factura'
-                         }, inplace=True)
+        data.rename(columns={'potencial_18_21': 'potencial_16_21',
+                         'deuda': 'deudas_antes_21'}, inplace=True)
 
         # Reads in saved classification model
         #model_gbc = GradientBoostingClassifier()      # parameters not required.
@@ -75,7 +71,7 @@ def app():
         col1, col2 = st.columns(2)
 
         col1.subheader('Predicciones')
-        col1.write(data[['nplaca', 'estatus_pago', 'prob_pago']])
+        col1.write(data[['nplaca', 'estatus_pago', 'prob_pago']].head(20))
         col2.subheader('Resultados')
         col2.write(data['estatus_pago'].value_counts())
 

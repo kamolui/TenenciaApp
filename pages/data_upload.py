@@ -84,7 +84,7 @@ def app():
         #data.drop(n_p, axis=1, inplace=True)
 
         # New data
-        st.dataframe(data)
+        st.dataframe(data.head())
         # utils.getProfile(data)
         # st.markdown("<a href='output.html' download target='_blank' > Download profiling report </a>",unsafe_allow_html=True)
         # HtmlFile = open("data/output.html", 'r', encoding='utf-8')
