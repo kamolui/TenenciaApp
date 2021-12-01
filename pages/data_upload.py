@@ -26,8 +26,22 @@ def app():
     if uploaded_file is not None:
         try:
             # Preprocesado de datos
+
+            #Filtrar columnas
+            data = data[(data['desciprcion_uso'] == 'MOTOCICLETAS') | (data['desciprcion_uso'] == 'AUTO PARTICULAR')]
+
             # buscar la cantidad de periodos dados
             n_p = periodos(data)
+
+            features = ['AVG', 'Inicio', 'valor_', 'persona', 'tarjeta_circulacion',
+                        'uso', 'depreciado', 'potencial', 'subsidio', 'tenencia']
+
+            cols = []
+
+            for i in range(10):
+                cols.append(data.filter(like=features[i], axis=1).columns[0])
+
+            data = data[(cols + n_p)]
 
             # Calcular los periodos pagados
             data['periodos'] = data[data[n_p].columns].apply(periodo, axis=1)
