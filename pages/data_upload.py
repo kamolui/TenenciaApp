@@ -81,7 +81,7 @@ def app():
     This section also allows changes in the numerical and categorical columns. '''
     if st.button("Load Data"):
 
-        data.drop(n_p, axis=1, inplace=True)
+        #data.drop(n_p, axis=1, inplace=True)
 
         # New data
         st.dataframe(data)

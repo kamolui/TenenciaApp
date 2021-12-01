@@ -22,8 +22,13 @@ def app():
         # cargar datos guardados en cache
         data = pd.read_csv('data/main_data.csv')
         st.dataframe(data)
-        data.rename(columns={'deuda': 'deudas_antes_21'},
-                  inplace=True)
+
+        data.rename(columns={'Potencial_18_21': 'potencial_16_21', 'Tipo_persona': 'tipo_persona',
+                         'Tarjeta_circulacion': 'tarjeta_circulacion',
+                         'Descripcion_uso': 'desciprcion_uso', 'Valor_depreciado': 'valor_depreciado_2021',
+                         'Tenencia': 'tenencia_2021', 'Subsidio': 'subsidio_2021',
+                         'Deuda': 'deudas_antes_21', 'Valor_factura': 'valor_factura'
+                         }, inplace=True)
 
         # Reads in saved classification model
         #model_gbc = GradientBoostingClassifier()      # parameters not required.
