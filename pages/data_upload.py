@@ -18,7 +18,7 @@ def app():
     global data
     if uploaded_file is not None:
         try:
-            data = pd.read_csv(uploaded_file, sep=';')
+            data = pd.read_csv(uploaded_file, sep=',')
         except Exception as e:
             print(e)
             data = pd.read_excel(uploaded_file)
@@ -34,14 +34,23 @@ def app():
             n_p = periodos(data)
 
             features = ['AVG', 'Inicio', 'valor_', 'persona', 'tarjeta_circulacion',
-                        'uso', 'depreciado', 'potencial', 'subsidio', 'tenencia']
+                        'uso', 'depreciado', 'potencial', 'subsidio', 'tenencia', 'placa']
 
             cols = []
 
             for i in range(10):
                 cols.append(data.filter(like=features[i], axis=1).columns[0])
 
-            data = data[(cols + n_p)]
+            data = data[(cols + n_p + ['placa'])]
+
+            data['tarjeta_circulacion'] = data['tarjeta_circulacion'].replace(np.nan, 'sin tramitar')
+
+            data = data.dropna()
+
+            data['IngresoAVG'] = pd.to_numeric(data['IngresoAVG'])
+            data['valor_factura'] = pd.to_numeric(data['valor_factura'])
+            data['valor_depreciado_2021'] = pd.to_numeric(data['valor_depreciado_2021'])
+            data['Inicio'] = data['Inicio'] + 2000
 
             # Calcular los periodos pagados
             data['periodos'] = data[data[n_p].columns].apply(periodo, axis=1)
@@ -55,6 +64,9 @@ def app():
             # Calcular la cantidad de deudas
             #data['deuda'] = data[['Inicio', 'periodos']].apply(deudas, axis=1)
             data['deuda'] = (year_max - (data['Inicio'] - 1)) - data['periodos']
+            data['deuda'] = pd.to_numeric(data['deuda'])
+
+            data = data[cols + ['deuda', 'placa']]
         except Exception as e:
             print(e)
 

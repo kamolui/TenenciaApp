@@ -1,6 +1,6 @@
 # Busca los periodos contenidos en la base dada
 def periodos(df):
-    per_p = ['P_' + str(x) for x in range(15, 25)]
+    per_p = ['Periodos_20' + str(x) for x in range(15, 25)]
     r = []
 
     for i in per_p:
