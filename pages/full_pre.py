@@ -38,8 +38,8 @@ def app():
         #model_xgb_2.load_model("models/xgb_tenencia.sav")
 
         # Apply model to make predictions
-        prediction = model_1.predict(data.drop(['placa'], axis=1))
-        prediction_proba = model_1.predict_proba(data.drop(['placa'], axis=1))
+        prediction = model_1.predict(data.drop(['nplaca'], axis=1))
+        prediction_proba = model_1.predict_proba(data.drop(['nplaca'], axis=1))
 
         # Añadir la columna de predicciones
         data['prediccion'] = prediction
