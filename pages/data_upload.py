@@ -65,6 +65,7 @@ def app():
             #data['deuda'] = data[['Inicio', 'periodos']].apply(deudas, axis=1)
             data['deuda'] = (year_max - (data['Inicio'] - 1)) - data['periodos']
             data['deuda'] = pd.to_numeric(data['deuda'])
+            data['deuda'] = data['deuda'] + 2000
 
             data = data[cols + ['deuda', 'nplaca']]
         except Exception as e:
