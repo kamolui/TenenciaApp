@@ -66,7 +66,7 @@ def app():
             data['deuda'] = (year_max - (data['Inicio'] - 1)) - data['periodos']
             data['deuda'] = pd.to_numeric(data['deuda'])
 
-            data = data[cols + ['deuda', 'placa']]
+            data = data[cols + ['deuda', 'nplaca']]
         except Exception as e:
             print(e)
 
