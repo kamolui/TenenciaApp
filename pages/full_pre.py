@@ -23,7 +23,7 @@ def app():
         data = pd.read_csv('data/main_data.csv')
         st.dataframe(data.head(20))
 
-        data.rename(columns={'potencial_18_21': 'potencial_16_21',
+        data.rename(columns={'potencial_17_21': 'potencial_16_21',
                          'deuda': 'deudas_antes_21'}, inplace=True)
 
         # Reads in saved classification model
