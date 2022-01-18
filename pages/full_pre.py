@@ -38,10 +38,8 @@ def app():
         #model_xgb_2.load_model("models/xgb_tenencia.sav")
 
         # Apply model to make predictions
-        #prediction = model_1.predict(data.drop(['placa'], axis=1))
-        #prediction_proba = model_1.predict_proba(data.drop(['placa'], axis=1))
-        prediction = model_1.predict(data)
-        prediction_proba = model_1.predict_proba(data)
+        prediction = model_1.predict(data.drop(['placa'], axis=1))
+        prediction_proba = model_1.predict_proba(data.drop(['placa'], axis=1))
 
         # Añadir la columna de predicciones
         data['prediccion'] = prediction
@@ -73,7 +71,7 @@ def app():
         col1, col2 = st.columns(2)
 
         col1.subheader('Predicciones')
-        col1.write(data[['estatus_pago', 'prob_pago']].head(20))
+        col1.write(data[['placa', 'estatus_pago', 'prob_pago']].head(20))
         col2.subheader('Resultados')
         col2.write(data['estatus_pago'].value_counts())
 

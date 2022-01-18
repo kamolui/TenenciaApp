@@ -41,7 +41,7 @@ def app():
             for i in range(10):
                 cols.append(data.filter(like=features[i], axis=1).columns[0])
 
-            data = data[(cols + n_p + ['placa'])]
+            data = data[(cols + n_p + ['nplaca'])]
 
             data['tarjeta_circulacion'] = data['tarjeta_circulacion'].replace(np.nan, 'sin tramitar')
 
@@ -65,8 +65,9 @@ def app():
             #data['deuda'] = data[['Inicio', 'periodos']].apply(deudas, axis=1)
             data['deuda'] = (year_max - (data['Inicio'] - 1)) - data['periodos']
             data['deuda'] = pd.to_numeric(data['deuda'])
+            data['deuda'] = data['deuda'] + 2000
 
-            data = data[cols + ['deuda', 'placa']]
+            data = data[cols + ['deuda', 'nplaca']]
         except Exception as e:
             print(e)
 
